@@ -1,0 +1,15 @@
+﻿@model IEnumerable<MorfoStudio.WebUI.Models.Product>
+
+<h2>Products</h2>
+
+<div style="display:flex; gap:20px; flex-wrap:wrap;">
+    @foreach (var p in Model)
+    {
+        <div style="border:1px solid #ccc; padding:10px; width:200px;">
+            <img src="@p.ImageUrl" alt="@p.Title" style="width:100%" />
+            <h3>@p.Title</h3>
+            <p>@p.Price</p>
+            <a href="@p.Url" target="_blank">Buy</a>
+        </div>
+    }
+</div>

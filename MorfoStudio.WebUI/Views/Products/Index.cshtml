@@ -1,0 +1,32 @@
+﻿@model List<MorfoStudio.WebUI.Models.Product>
+<h2 class="text-center my-4" style="font-size: 55px; font-weight: bold; font-family: 'Century Gothic';">| Recently Added Products 🔗Shopier  |</h2>
+
+<div class="container my-5">
+    <div class="row g-4 justify-content-center">
+        @foreach (var product in Model)
+        {
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card h-100 product-card-custom">
+                    <a href="@product.Url" target="_blank" class="d-block product-image-wrapper">
+                        <img src="@product.ImageUrl" class="card-img-top img-fluid" alt="@product.Title" />
+                    </a>
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title">
+                            <a href="@product.Url" target="_blank" class="text-white text-decoration-none product-title-custom">
+                                @product.Title
+                            </a>
+                        </h5>
+                        <div class="mt-auto">
+                            @if (product.Price.HasValue)
+                            {
+                                <p class="text-white product-price-custom">
+                                    @product.Price.Value.ToString("N0") @product.Currency
+                                </p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

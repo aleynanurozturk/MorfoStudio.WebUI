@@ -1,0 +1,87 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center mt-5"
+    <h1 class="display-3" style="font-family: 'Century Gothic'; font-weight:bold; font-size: 80px;">
+        • Welcome to the World of Morfo Studio •
+    </h1>
+    <h2 class="display-6" style="font-family: 'Century Gothic'; font-size: 60px;">
+        Handcrafted Ceramics & Sculptures & Artistic Objects
+    </h2>
+    <h3 class="display-6" style="font-family: 'Century Gothic'; font-size: 40px;">
+        Slow Design | Timeless Textures | Unique Forms
+    </h3>
+</div>
+
+<div class="row mt-5">
+    <div class="col-12 d-flex justify-content-center">
+        <div style="position: relative;">
+            <img id="home-slideshow" src="@Url.Content("~/images/image1.png")"
+                 style="width:100%; height:auto; border-radius:12px; transition:opacity 0.5s ease-in-out;" />
+
+            <button onclick="homePrevSlide()"
+                    style="position:absolute; top:50%; left:10px; transform:translateY(-50%);
+                           background:none; color:white; font-size:40px; border:none; cursor:pointer; z-index:10;">
+                &lt;
+            </button>
+
+            <button onclick="homeNextSlide()"
+                    style="position:absolute; top:50%; right:10px; transform:translateY(-50%);
+                           background:none; color:white; font-size:40px; border:none; cursor:pointer; z-index:10;">
+                &gt;
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const homeImages = [
+        '@Url.Content("~/images/image1.png")',
+        '@Url.Content("~/images/image2.png")',
+        '@Url.Content("~/images/image3.png")',
+        '@Url.Content("~/images/image4.png")',
+        '@Url.Content("~/images/image5.png")',
+        '@Url.Content("~/images/image6.png")'
+    ];
+
+    let homeIndex = 0;
+    const homeSlide = document.getElementById("home-slideshow");
+    let homeAutoSlide;
+
+    function homeShowSlide(index) {
+        homeSlide.style.opacity = 0;
+        setTimeout(() => {
+            homeSlide.src = homeImages[index];
+            homeSlide.style.opacity = 1;
+        }, 500);
+    }
+
+    function homeNextSlide() {
+        homeIndex = (homeIndex + 1) % homeImages.length;
+        homeShowSlide(homeIndex);
+        resetAutoSlide();
+    }
+
+    function homePrevSlide() {
+        homeIndex = (homeIndex - 1 + homeImages.length) % homeImages.length;
+        homeShowSlide(homeIndex);
+        resetAutoSlide();
+    }
+
+    function startAutoSlide() {
+        homeAutoSlide = setInterval(() => {
+            homeNextSlide();
+        }, 4000);
+    }
+
+    function resetAutoSlide() {
+        clearInterval(homeAutoSlide);
+        startAutoSlide();
+    }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        homeShowSlide(homeIndex);
+        startAutoSlide();
+    });
+</script>

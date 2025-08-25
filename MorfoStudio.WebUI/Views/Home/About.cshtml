@@ -1,0 +1,89 @@
+﻿@{
+    ViewData["Title"] = "About";
+}
+
+<div class="row mt-5 justify-content-center">
+    <div class="col-lg-5 col-md-10 d-flex align-items-center justify-content-center">
+        <div>
+            <h2 style="font-weight: bold;  font-size: 50px; font-family: 'Century Gothic';">
+                👋 Hello from Morfo Studio
+            </h2>
+            <br /><br/>
+            <p style="font-size: 35px;">
+                We’re Özgür Canbaz and İrem Kale — a sculptor and a Spanish teacher, partners in life and in clay. Together, we created Morfo Studio: a space for amorphous, textured, and one-of-a-kind handmade art. Rooted in Çanakkale, we shape pieces that blur the line between sculpture and function. From organic ceramic objects to tactile sculptures — everything is made slowly, soulfully, and with our hands.
+                <br /><br />
+                Thank you for being here. This is just the beginning.
+                <br /><br />
+                Stay with us as we mold, carve and create.
+            </p>
+        </div>
+    </div>
+
+    <div class="col-lg-5 col-md-10 d-flex align-items-center justify-content-center">
+        <div style="position:relative; text-align:center;">
+            <img id="story-slideshow" src="@Url.Content("~/images/image7.png")"
+                 style="width:100%; height:auto; border-radius:12px; transition:opacity 1s ease-in-out;" />
+
+            <button onclick="prevSlide()"
+                    style="position:absolute; top:50%; left:10px; transform:translateY(-50%);
+                           background:none; color:white; font-size:40px; border:none; cursor:pointer; z-index:10;">
+                &lt;
+            </button>
+
+            <button onclick="nextSlide()"
+                    style="position:absolute; top:50%; right:10px; transform:translateY(-50%);
+                           background:none; color:white; font-size:40px; border:none; cursor:pointer; z-index:10;">
+                &gt;
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const storyImages = [
+        '@Url.Content("~/images/image7.png")',
+        '@Url.Content("~/images/image8.png")',
+        '@Url.Content("~/images/image9.png")',
+        '@Url.Content("~/images/image10.png")'
+    ];
+
+    let storyIndex = 0;
+    const storySlide = document.getElementById("story-slideshow");
+    let autoSlide;
+
+    function showSlide(index) {
+        storySlide.style.opacity = 0;
+        setTimeout(() => {
+            storySlide.src = storyImages[index];
+            storySlide.style.opacity = 1;
+        }, 500);
+    }
+
+    function nextSlide() {
+        storyIndex = (storyIndex + 1) % storyImages.length;
+        showSlide(storyIndex);
+        resetAutoSlide();
+    }
+
+    function prevSlide() {
+        storyIndex = (storyIndex - 1 + storyImages.length) % storyImages.length;
+        showSlide(storyIndex);
+        resetAutoSlide();
+    }
+
+    function startAutoSlide() {
+        autoSlide = setInterval(() => {
+            nextSlide();
+        }, 4000);
+    }
+
+    function resetAutoSlide() {
+        clearInterval(autoSlide);
+        startAutoSlide();
+    }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        storySlide.src = storyImages[storyIndex];
+        startAutoSlide();
+    });
+</script>

@@ -1,0 +1,90 @@
+﻿@{
+    ViewData["Title"] = "Contact";
+}
+
+<div class="container">
+    <div class="row mt-5 g-5">
+        <div class="col-lg-6 d-flex align-items-center mb-4 mb-lg-0">
+            <div class="pe-lg-5">
+                <h2 style="font-weight: bold; font-family: 'Century Gothic'; font-size: 65px;">Contact Us</h2>
+                <div class="mt-4">
+                    <p style="font-size: 40px">
+                        📸 Instagram:
+                        <a href="https://instagram.com/morfo.studio/" target="_blank" style="font-size: 40px; font-weight: bold; color:azure; text-decoration:none;">
+                            @@morfo.studio
+                        </a>
+                    </p>
+                    <p style="font-size: 40px;">📩 Mail: morfo.stu@gmail.com</p>
+                    <p style="font-size: 40px;">📌 Location: Çanakkale, Türkiye</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 d-flex align-items-center justify-content-center">
+            <div class="slider-wrapper" style="position: relative;">
+                <img id="contact-slideshow" src="@Url.Content("~/images/image11.png")"
+                     style="width:100%; height:auto; border-radius:12px; transition:opacity 0.5s ease-in-out;" />
+
+                <button onclick="contactPrevSlide()"
+                        style="position:absolute; top:50%; left:10px; transform:translateY(-50%);
+                               background:none; color:azure; font-size:40px; border:none; cursor:pointer; z-index:10;">
+                    &lt;
+                </button>
+
+                <button onclick="contactNextSlide()"
+                        style="position:absolute; top:50%; right:10px; transform:translateY(-50%);
+                               background:none; color:azure; font-size:40px; border:none; cursor:pointer; z-index:10;">
+                    &gt;
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const contactImages = [
+        '@Url.Content("~/images/image11.png")',
+        '@Url.Content("~/images/image12.png")',
+        '@Url.Content("~/images/image13.png")',
+        '@Url.Content("~/images/image14.png")',
+        '@Url.Content("~/images/image15.png")'
+    ];
+
+    let contactIndex = 0;
+    const contactSlide = document.getElementById("contact-slideshow");
+    let contactAutoSlide;
+
+    function contactShowSlide(index) {
+        contactSlide.style.opacity = 0;
+        setTimeout(() => {
+            contactSlide.src = contactImages[index];
+            contactSlide.style.opacity = 1;
+        }, 300);
+    }
+
+    function contactNextSlide() {
+        contactIndex = (contactIndex + 1) % contactImages.length;
+        contactShowSlide(contactIndex);
+        contactResetAutoSlide();
+    }
+
+    function contactPrevSlide() {
+        contactIndex = (contactIndex - 1 + contactImages.length) % contactImages.length;
+        contactShowSlide(contactIndex);
+        contactResetAutoSlide();
+    }
+
+    function contactStartAutoSlide() {
+        contactAutoSlide = setInterval(contactNextSlide, 4000);
+    }
+
+    function contactResetAutoSlide() {
+        clearInterval(contactAutoSlide);
+        contactStartAutoSlide();
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        contactShowSlide(contactIndex);
+        contactStartAutoSlide();
+    });
+</script>
